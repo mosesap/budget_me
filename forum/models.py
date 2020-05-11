@@ -12,6 +12,18 @@ rate_choices = (
     ("5", "Biweekly"),
 )
 
+class Post(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    post_title = models.TextField(max_length=2**5, default='')
+    post_text = models.TextField(max_length=2**10, default='')
+    date_posted = models.DateTimeField(default=timezone.now)
+
+    def __str__(self):
+        return self.post_title
+    
+    def get_absolute_url(self):
+        return reverse('post-detail', kwargs={'pk':self.pk})
+
 class Income(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     rate = models.CharField(max_length=1, choices=rate_choices, default="1")

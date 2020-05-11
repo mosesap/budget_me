@@ -2,34 +2,28 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.models import User
-from .models import Income
+from .models import Income, Post
 from django.views.generic import (
     ListView,
     DetailView,
     CreateView,
     UpdateView,
     DeleteView,
+    TemplateView,
 )
-
-def home(request):
-    context = {
-        'title':'Budget me',
-        'posts': Income.objects.all(),
-    }
-    return render(request, 'forum/home.html', context)
 
 class IncomeListView(ListView):
     model = Income
     template_name = 'forum/home.html'
     context_object_name = 'posts'
     ordering = ['-date_posted']
-    paginate_by = 1
+    paginate_by = 5
 
 class UserIncomeListView(ListView):
     model = Income
     template_name = 'forum/home.html'
     context_object_name = 'posts'
-    paginate_by = 1
+    paginate_by = 2
 
     def get_queryset(self):
         user = get_object_or_404(User, username=self.kwargs.get('username'))
@@ -73,8 +67,10 @@ class IncomeDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         income = self.get_object()
         return self.request.user == income.user
 
-def about(request):
-    context = {
-        'title':'About',
-    }
-    return render(request, 'forum/about.html', context)
+class AboutTemplateView(TemplateView):
+    template_name = 'forum/about.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['Title'] = 'About'
+        return context

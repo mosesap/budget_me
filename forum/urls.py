@@ -7,6 +7,7 @@ from .views import (
     IncomeUpdateView,
     IncomeDeleteView,
     UserIncomeListView,
+    AboutTemplateView,
 )
 
 urlpatterns = [
@@ -16,5 +17,5 @@ urlpatterns = [
     path('income/new/', IncomeCreateView.as_view(), name='income-create'),
     path('income/<int:pk>/update/', IncomeUpdateView.as_view(), name='income-update'),
     path('income/<int:pk>/delete/', IncomeDeleteView.as_view(), name='income-delete'),
-    path('about/', views.about, name='forum-about'),
+    path('about/', AboutTemplateView.as_view(), name='forum-about'),
 ]
