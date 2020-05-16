@@ -1,5 +1,5 @@
 body {
-    background: #6600ff;
+    background: #680cb4d5;
     color: #333333;
     margin-top: 5rem;
   }
@@ -13,16 +13,18 @@ body {
   }
   
   .bg-grey {
-    background-color: #fafafa
-    ;
+    background-color: #f8ffff;
   }
   
+  .navbar {
+    box-shadow: 0 2px 2px 0px #1c2c3a;
+  }
   .site-header .navbar-nav .nav-link {
-    color: #cbd5db;
+    color: #010d14;
   }
   
   .site-header .navbar-nav .nav-link:hover {
-    color: #ffffff;
+    color: #074d69;
   }
   
   .site-header .navbar-nav .nav-link.active {

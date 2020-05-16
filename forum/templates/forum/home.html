@@ -11,6 +11,11 @@
                 <h2><a class="article-title" href="{% url 'income-detail' post.id %}">{{ post.income }}</a></h2>
                 <p class="article-content">{{ post.rate }}</p>
             </div>
+            <div class="container my-4">
+                <div>
+                    <canvas id="pieChart" style="max-width: 500px;"></canvas>
+                </div>
+            </div>
         </article>
     {% endfor %}
     {% if is_paginated %}
@@ -28,6 +33,23 @@
         {% if page_obj.has_next %}
             <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.next_page_number }}">Next</a>
             <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+        {% endif %}
     {% endif %}
-    {% endif %}
+    <script type="text/javascript">
+        var ctxP = document.getElementById("pieChart").getContext('2d');
+        var myPieChart = new Chart(ctxP, {
+          type: 'pie',
+          data: {
+            labels: ["Reed", "Green", "Yellow", "Grey", "Dark Grey"],
+            datasets: [{
+              data: [300, 50, 100, 40, 120],
+              backgroundColor: ["#F7464A", "#46BFBD", "#FDB45C", "#949FB1", "#4D5360"],
+              hoverBackgroundColor: ["#FF5A5E", "#5AD3D1", "#FFC870", "#A8B3C5", "#616774"]
+            }]
+          },
+          options: {
+            responsive: true
+          }
+        });
+    </script>
 {% endblock content %}
